@@ -12,7 +12,7 @@ var visits = require('./routes/visits');
 var Visit = require("./models/visit.js");
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/myapp');
+mongoose.connect('mongodb://localhost:17017/myapp');
 
 
 var app = express();
