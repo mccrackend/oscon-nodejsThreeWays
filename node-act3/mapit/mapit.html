@@ -1,13 +1,17 @@
 <head>
   <title>mapit</title>
 </head>
-
 <body>
-  {{> hello}}
+    <div>
+        {{> markerlist}}
+    </div>
 </body>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
+<template name="markerlist">
+  {{#each markers}}
+    <div>
+      <b>Marker</b><br>
+      <span>-- Coordinates: {{coords}}</span><br>
+    </div><br>
+  {{/each}}
 </template>

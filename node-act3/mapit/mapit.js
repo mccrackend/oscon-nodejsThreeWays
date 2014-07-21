@@ -1,19 +1,23 @@
-if (Meteor.isClient) {
-  Template.hello.greeting = function () {
-    return "Welcome to mapit.";
-  };
+Markers = new Meteor.Collection('markers');
 
-  Template.hello.events({
-    'click input': function () {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined')
-        console.log("You pressed the button");
-    }
-  });
+if (Meteor.isClient) {
+    Meteor.subscribe("markers");
+
+    Template.markerlist.markers = function() {
+        return Markers.find({});
+    };
 }
 
 if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
+    // Insert a marker if none exist
+    if(Markers.find().count() == 0) {
+        console.log("No markers found in collection - inserting one");
+        Markers.insert({"coords": [49.25044, -123.137]});
+    }
+
+    // publish collection to client
+    Meteor.publish("markers", function () {
+        // you can specify constraints in find() query, if desired
+        return Markers.find();
+    });
 }
